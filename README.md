@@ -1,5 +1,29 @@
 # amocrm-1c-resilient-gateway
 
+## ⚡ Quickstart (60 seconds)
+
+```bash
+# 1. Получить код
+git clone https://github.com/genadandi07-netizen/Dandy-Jarvis.git && cd Dandy-Jarvis
+
+# 2. Создать и заполнить окружение (GATEWAY_HMAC_SECRET, GATEWAY_ONEC_BASE_URL,
+#    GATEWAY_ONEC_USER/PASSWORD, GATEWAY_N8N_DLQ_URL)
+cp .env.example .env && $EDITOR .env
+
+# 3. Собрать и поднять (публикация на 127.0.0.1:8000, SQLite WAL в ./data)
+docker compose up -d --build
+
+# 4. Проверить живость
+curl -f http://127.0.0.1:8000/health
+# -> {"status":"ok","service":"amocrm-1c-gateway"}
+```
+
+Полное руководство по подключению amoCRM (Ingress, HMAC/replay), 1C OData
+(Egress) и регламент аварийного восстановления через n8n DLQ —
+[`docs/INTEGRATION_MANUAL.md`](docs/INTEGRATION_MANUAL.md).
+
+---
+
 Надёжный шлюз интеграции **AmoCRM → 1C** с HMAC-аутентификацией, идемпотентным
 журналом в SQLite WAL и отказоустойчивой доставкой в 1C OData с fallback в n8n
 Dead Letter Queue.
